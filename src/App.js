@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {CardList} from './components/card-list/card-list.component.jsx';
 import Firebase from './firebase-conexion/config';
-import {getPropertyOfCollection,getCollectionByCondition} from './firebase-conexion/queries';
+import {getPropertyOfCollection,getAllOrdersWaiter} from './firebase-conexion/queries';
 
 class App extends React.Component{
   constructor(props){
@@ -14,9 +14,11 @@ class App extends React.Component{
   } 
   componentDidMount(){
     
+    getAllOrdersWaiter(this.dbContext.db,"opimWyCY5tNKY7ZdQqsN");
+
     //this.getAllOrdersWaiter();
     
-    getCollectionByCondition(
+    /*getCollectionByCondition(
       this.dbContext.db,
       "items",
       {field:"name", operator:"==", value:"Coca Cola"}
@@ -26,7 +28,7 @@ class App extends React.Component{
         this.setState({elemnts:results})
 
       }
-    );
+    );*/
   }
 
   getAllOrdersWaiter=()=>{

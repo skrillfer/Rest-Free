@@ -12,12 +12,13 @@ const showItems=(db)=>{
 
 
 const getAllOrdersWaiter=(db,waiterId)=>{
-    return db.collection("waiters")
+    return db.collection("restaurants")
     .doc(waiterId)
+    .collection("data")
     .get()
     .then(
         doc=>{
-            return doc.data().orders;
+            console.log(doc.docs[0].data());
         }
     ).catch(error=>{console.log(error); return [];});;
 }
