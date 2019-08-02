@@ -1,3 +1,5 @@
+import appF from 'firebase';
+
 const config={
     apiKey: "AIzaSyDE-VRTWO7_tqDpsrfgpbNouBR_cDNStNA",
     authDomain: "restfree-fb70d.firebaseapp.com",
@@ -8,4 +10,10 @@ const config={
     appId: "1:474057732963:web:fe2ca3211749107f"
 }
 
-export default config;
+class Firebase{
+    constructor(){
+        this.firebaseApp=appF.initializeApp(config);
+        this.db = this.firebaseApp.firestore();
+    }
+}
+export default Firebase;

@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.css';
-import Firebase from 'firebase';
 import {CardList} from './components/card-list/card-list.component.jsx';
-import config from './firebase-conexion/config';
-import {showItems} from './firebase-conexion/queries';
+import Firebase from './firebase-conexion/config';
+import {getPropertyOfCollection,getCollectionByCondition} from './firebase-conexion/queries';
 
 class App extends React.Component{
   constructor(props){
@@ -11,15 +10,39 @@ class App extends React.Component{
     this.state={
       elemnts:[]
     }
-    this.firebaseApp=Firebase.initializeApp(config);
-    this.db = this.firebaseApp.firestore();
+    this.dbContext = new Firebase();
   } 
   componentDidMount(){
     
-    let self= this;
-    showItems(this.db).then(result=>{ self.setState({elemnts:result})});
+    //this.getAllOrdersWaiter();
+    
+    getCollectionByCondition(
+      this.dbContext.db,
+      "items",
+      {field:"name", operator:"==", value:"Coca Cola"}
+    ).then(
+      results=>{
+        results=results.map((obj,index)=> ({ ...obj, id: index }));
+        this.setState({elemnts:results})
+
+      }
+    );
+  }
+
+  getAllOrdersWaiter=()=>{
+    getPropertyOfCollection(this.dbContext.db,"waiters","YmSHfgWhrbgRHYgxswGN","orders")
+    .then(
+      results => {
+        return results;
+      }
+    );
     
   }
+
+  getAllOrdersCookingWaiter(){
+    
+  }
+
   render(){
     const {elemnts}= this.state;
     return (
@@ -31,13 +54,5 @@ class App extends React.Component{
     );
   }
 
-  getUserData = () => {
-    let ref = Firebase.database().ref('/');
-    ref.on('value', snapshot => {
-      const state = snapshot.val();
-      this.setState(state);
-    });
-    console.log('DATA RETRIEVED');
-  }
 }
 export default App;
