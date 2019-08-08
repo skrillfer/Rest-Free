@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {CardList} from './components/card-list/card-list.component.jsx';
-import Firebase from './firebase-conexion/config';
+import Firebase from './firebase-conexion/firebase.utils';
 import {getPropertyOfCollection,getAllOrdersWaiter} from './firebase-conexion/queries';
 
 class App extends React.Component{
