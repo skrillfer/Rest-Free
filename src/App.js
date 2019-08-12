@@ -1,60 +1,56 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+
 import './App.css';
-import {CardList} from './components/card-list/card-list.component.jsx';
-import Firebase from './firebase-conexion/firebase.utils';
-import {getPropertyOfCollection,getAllOrdersWaiter} from './firebase-conexion/queries';
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      elemnts:[]
-    }
-    this.dbContext = new Firebase();
-  } 
-  componentDidMount(){
-    
-    getAllOrdersWaiter(this.dbContext.db,"opimWyCY5tNKY7ZdQqsN");
+import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import Header from './components/header/header.component';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-    //this.getAllOrdersWaiter();
-    
-    /*getCollectionByCondition(
-      this.dbContext.db,
-      "items",
-      {field:"name", operator:"==", value:"Coca Cola"}
-    ).then(
-      results=>{
-        results=results.map((obj,index)=> ({ ...obj, id: index }));
-        this.setState({elemnts:results})
+class App extends React.Component {
+  constructor() {
+    super();
 
+    this.state = {
+      currentUser: null
+    };
+  }
+
+  unsubscribeFromAuth = null;
+
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+        });
       }
-    );*/
+
+      this.setState({ currentUser: userAuth });
+    });
   }
 
-  getAllOrdersWaiter=()=>{
-    getPropertyOfCollection(this.dbContext.db,"waiters","YmSHfgWhrbgRHYgxswGN","orders")
-    .then(
-      results => {
-        return results;
-      }
-    );
-    
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
   }
 
-  getAllOrdersCookingWaiter(){
-    
-  }
-
-  render(){
-    const {elemnts}= this.state;
+  render() {
     return (
-      <div className="App">
-        <h1>Rest Free</h1>
-        <h3>Items</h3>
-        <CardList monsters={elemnts}></CardList>
+      <div>
+        <Header currentUser={this.state.currentUser} />
+        <Switch>
+          <Route path='/signin' component={SignInAndSignUpPage} />
+        </Switch>
       </div>
     );
   }
-
 }
+
 export default App;
