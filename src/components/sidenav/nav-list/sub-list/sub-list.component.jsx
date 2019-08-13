@@ -1,9 +1,8 @@
 import React from 'react';
-
-const SubList = ({children})=>(
-    <ul className="subList subList--hidden">
-        {children}
+import './sub-list.styles.scss';
+const SubList = (props)=>(   
+    <ul className={`subList subList${props.Visibility?'--hidden':''}`}>
+        {props.children}
     </ul>
-);
-
+)
 export default SubList;

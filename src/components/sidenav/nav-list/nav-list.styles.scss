@@ -1,0 +1,10 @@
+$color-fiord: #394263; // sidenav bg & dark text
+$width-sidenav: 240px;
+
+.navList {
+    width: $width-sidenav;
+    padding: 0;
+    margin: 0;
+    background-color: $color-fiord;
+    list-style-type: none;
+}

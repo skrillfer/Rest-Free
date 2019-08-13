@@ -7,6 +7,10 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
+import NavList from './components/sidenav/nav-list/nav-list.component';
+import Heading from  './components/sidenav/nav-list/heading/heading.component';
+import SubHeading from './components/sidenav/nav-list/sub-heading/sub-heading.component';
+
 class App extends React.Component {
   constructor() {
     super();
@@ -45,6 +49,23 @@ class App extends React.Component {
     return (
       <div>
         <Header currentUser={this.state.currentUser} />
+        <NavList>
+          <Heading title={'Reports'}/>
+          <SubHeading  title={'Products'}>
+                <li className="subList__item">medical</li>
+                <li className="subList__item">vision</li>
+                <li className="subList__item">dental</li>
+          </SubHeading>
+          
+          <Heading title={'Kitchen'}/>
+          <SubHeading  title={'Orders'}>
+                <li className="subList__item">In Kitchen</li>
+                <li className="subList__item">Delivered</li>
+                <li className="subList__item">Waiting</li>
+          </SubHeading>
+          
+        </NavList>
+        
         <Switch>
           <Route path='/signin' component={SignInAndSignUpPage} />
         </Switch>
