@@ -7,9 +7,11 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
+import SideNav  from './components/sidenav/sidenav-component';
 import NavList from './components/sidenav/nav-list/nav-list.component';
 import Heading from  './components/sidenav/nav-list/heading/heading.component';
 import SubHeading from './components/sidenav/nav-list/sub-heading/sub-heading.component';
+import { FiCast } from "react-icons/fi";
 
 class App extends React.Component {
   constructor() {
@@ -47,25 +49,26 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="grid">
         <Header currentUser={this.state.currentUser} />
-        <NavList>
-          <Heading title={'Reports'}/>
-          <SubHeading  title={'Products'}>
-                <li className="subList__item">medical</li>
-                <li className="subList__item">vision</li>
-                <li className="subList__item">dental</li>
-          </SubHeading>
-          
-          <Heading title={'Kitchen'}/>
-          <SubHeading  title={'Orders'}>
-                <li className="subList__item">In Kitchen</li>
-                <li className="subList__item">Delivered</li>
-                <li className="subList__item">Waiting</li>
-          </SubHeading>
-          
-        </NavList>
-        
+        <SideNav>
+          <NavList>
+            <Heading title={'Reports'}/>
+            <SubHeading  title={'Products'} icon={<FiCast/>}>
+                  <li className="subList__item">medical</li>
+                  <li className="subList__item">vision</li>
+                  <li className="subList__item">dental</li>
+            </SubHeading>
+            
+            <Heading title={'Kitchen'}/>
+            <SubHeading  title={'Orders'}>
+                  <li className="subList__item">In Kitchen</li>
+                  <li className="subList__item">Delivered</li>
+                  <li className="subList__item">Waiting</li>
+            </SubHeading>
+            
+          </NavList>  
+        </SideNav>
         <Switch>
           <Route path='/signin' component={SignInAndSignUpPage} />
         </Switch>

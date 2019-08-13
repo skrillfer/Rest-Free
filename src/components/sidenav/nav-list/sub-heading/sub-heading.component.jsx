@@ -8,10 +8,7 @@ const SubHeading = ({title,icon,children}) =>{
       <React.Fragment>
         <div className= {`__subheading row row--align-v-center${visibility?'':' __subheading--open'}`}
              onClick={()=>{setVisibility(!visibility); }} >
-          {icon?
-          <span className="__subheading-icon">
-              logo
-          </span>
+          {icon?<span>{icon}</span>
           :null}
           <span className="__subheading-title">{title}</span>
         </div>
