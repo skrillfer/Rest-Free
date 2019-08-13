@@ -32,7 +32,7 @@ class App extends React.Component {
           });
         });
       }
-
+      console.log(userAuth);
       this.setState({ currentUser: userAuth });
     });
   }
