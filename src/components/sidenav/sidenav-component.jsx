@@ -1,7 +1,7 @@
 import React from 'react';
 import './sidenav.styles.scss';
 const SideNav = ({children}) =>(
-    <aside class="sidenav">
+    <aside className="sidenav">
         {children}
     </aside>
 );

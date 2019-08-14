@@ -10,8 +10,25 @@ $width-sidenav: 240px;
     background-color: $color-fiord;
     color: $color-white;
     width: $width-sidenav; // Will match grid area on medium + screens
-    transform: translateX(-245px);
+    transform: translateX(2px);
     transition: all .6s ease-in-out;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
     z-index: 2; // Needs to sit above the hamburger menu icon
-}  
+}
+
+@media screen and (max-width: 700px) {
+    .sidenav {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidenav div {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .sidenav div {
+      text-align: center;
+      float: none;
+    }
+  }

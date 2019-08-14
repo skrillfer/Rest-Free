@@ -7,6 +7,8 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
+import GridContainer from './components/grid-container/grid-container.component';
+
 import SideNav  from './components/sidenav/sidenav-component';
 import NavList from './components/sidenav/nav-list/nav-list.component';
 import Heading from  './components/sidenav/nav-list/heading/heading.component';
@@ -49,7 +51,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="grid">
+      <GridContainer>
         <Header currentUser={this.state.currentUser} />
         <SideNav>
           <NavList>
@@ -72,7 +74,7 @@ class App extends React.Component {
         <Switch>
           <Route path='/signin' component={SignInAndSignUpPage} />
         </Switch>
-      </div>
+      </GridContainer>
     );
   }
 }

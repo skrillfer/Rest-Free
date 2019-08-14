@@ -1,0 +1,19 @@
+$height-header: 50px;
+$height-footer: 50px;
+// Establish dashboard css grid layout - mobile
+.grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 100%; // Charts responsiveness won't work with fr units
+    grid-template-rows: $height-header 1fr $height-footer;
+    grid-template-areas:
+      'header'
+      'main'
+      'footer';
+    height: 100vh;
+    overflow-x: hidden; // Prevent overflow scroll from hidden sidenav
+  
+    &--noscroll {
+      overflow-y: hidden;
+    }
+  }
