@@ -37,9 +37,20 @@ const getCollectionByCondition=(db,collName,condition)=>{
     ).catch(error=>{console.log(error); return [];});
 }
 
-const getCollectionById=(db,nameColl,collId)=>{
+const getCollectionById=(db,nameColl)=>{
     return db.collection(nameColl)
-    .doc(collId)
+    .get()
+    .then(
+        querySnapshot => {
+                const data =querySnapshot.docs.map(doc => doc.data());
+                return data;
+        }
+    ).catch(error=>{console.log(error); return [];});
+}
+
+const getDocFromCollectionById=(db,nameColl,docId)=>{
+    return db.collection(nameColl)
+    .doc(docId)
     .get()
     .then(
         doc=>{
@@ -52,9 +63,9 @@ const getCollectionById=(db,nameColl,collId)=>{
     ).catch(error=>{console.log(error); return {};});
 }
 
-const getPropertyOfCollection=(db,nameColl,collId,nameProperty)=>{
+const getPropertyOfCollection=(db,nameColl,docId,nameProperty)=>{
     return db.collection(nameColl)
-    .doc(collId)
+    .doc(docId)
     .get()
     .then(
         doc=>{
@@ -74,7 +85,8 @@ const getPropertyOfCollection=(db,nameColl,collId,nameProperty)=>{
 export {
     showItems,
     getAllOrdersWaiter,
-    getCollectionById,
+    getDocFromCollectionById,
     getPropertyOfCollection,
-    getCollectionByCondition
+    getCollectionByCondition,
+    getCollectionById
 };

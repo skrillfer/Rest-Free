@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
-
+import {getCollectionById} from './queries';
 
 const config={
     apiKey: "AIzaSyDE-VRTWO7_tqDpsrfgpbNouBR_cDNStNA",
@@ -24,14 +24,7 @@ export const createRestaurantDocument =async (userAuth, additionalData) => {
 }
 
 export const getAllUser= async()=>{
-  return firestore.collection("admins")
-    .get()
-    .then(
-        querySnapshot => {
-                const data =querySnapshot.docs.map(doc => doc.data());
-                return data;
-        }
-    ).catch(error=>{console.log(error); return [];});
+  return await getCollectionById(firestore,"admins");
 }
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
