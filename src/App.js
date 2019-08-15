@@ -5,7 +5,7 @@ import './App.css';
 
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument,getAllUser } from './firebase/firebase.utils';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
@@ -27,6 +27,9 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    getAllUser().then(value=>{
+        console.log(value);
+    });
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);

@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
 
+
 const config={
     apiKey: "AIzaSyDE-VRTWO7_tqDpsrfgpbNouBR_cDNStNA",
     authDomain: "restfree-fb70d.firebaseapp.com",
@@ -16,28 +17,21 @@ const config={
 firebase.initializeApp(config);
 
 export const createRestaurantDocument =async (userAuth, additionalData) => {
-  const reF=firestore.collection('restaurants').doc();//.collection('branches').doc();//.doc('subdoc1').collection('admins').doc('sub_subdoc1');
+  const reF=firestore.collection('restaurants').doc();
   await reF.set({'0':''});
   const reF2=await reF.collection('branches').doc();
   await reF2.set({'1':''});
+}
 
-  //await reF2.collection('admins').doc().set({name:'fernando'});
-  //await reF2.collection('admins').doc().set({name:'degar'});
-  
-  //const snap = await reF.get();
-  /*if(!snap.exists){
-    await reF.set({
-      email:'fernando@hotmail.com'
-    });
-  }*/
-  console.log('-----------------');
-  
-  console.log('-----------------');
-  //const newId=firestore.createId();
-  //console.log(newId);
-  //const restId = firestore.collection('restaurants').doc().getId();
-  //const branchesRef = firestore.collection('restaurants').doc(restId).collection('branches');
-  //branchesRef.collection('admins');
+export const getAllUser= async()=>{
+  return firestore.collection("admins")
+    .get()
+    .then(
+        querySnapshot => {
+                const data =querySnapshot.docs.map(doc => doc.data());
+                return data;
+        }
+    ).catch(error=>{console.log(error); return [];});
 }
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
