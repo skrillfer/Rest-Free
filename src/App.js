@@ -3,9 +3,12 @@ import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
 
+import OrdersPage from './pages/restaurant-orders/restaurant-orders.component';
+
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument,getAllUser } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument,deleteRest,getAllRest } from './firebase/firebase.utils';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
@@ -27,8 +30,14 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    getAllUser().then(value=>{
-        console.log(value);
+    getAllRest().then(value=>{
+        value.forEach(element => {
+            if(element=="opimWyCY5tNKY7ZdQqsN"){
+              console.log(element);
+            }else{
+              deleteRest(element);
+            }
+        });
     });
     
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -57,6 +66,7 @@ class App extends React.Component {
     return (
       <GridContainer>
         <Header currentUser={this.state.currentUser} />
+        
         <SideNav>
           <NavList>
             <Heading title={'Reports'}/>
@@ -77,6 +87,7 @@ class App extends React.Component {
         </SideNav>
         <Switch>
           <Route path='/signin' component={SignInAndSignUpPage} />
+          <Route path='/orders' component={OrdersPage} />
         </Switch>
       </GridContainer>
     );

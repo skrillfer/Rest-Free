@@ -1,4 +1,4 @@
-const showItems=(db)=>{
+export const showItems=(db)=>{
     return  db.collection("items")
     .where("name", "==", "Coca Cola")
     .get()
@@ -11,7 +11,7 @@ const showItems=(db)=>{
 }
 
 
-const getAllOrdersWaiter=(db,waiterId)=>{
+export const getAllOrdersWaiter=(db,waiterId)=>{
     return db.collection("restaurants")
     .doc(waiterId)
     .collection("data")
@@ -24,7 +24,7 @@ const getAllOrdersWaiter=(db,waiterId)=>{
 }
 
 
-const getCollectionByCondition=(db,collName,condition)=>{
+export const getCollectionByCondition=(db,collName,condition)=>{
 
     return  db.collection(collName)
     .where(condition.field,condition.operator,condition.value)
@@ -37,7 +37,7 @@ const getCollectionByCondition=(db,collName,condition)=>{
     ).catch(error=>{console.log(error); return [];});
 }
 
-const getCollectionById=(db,nameColl)=>{
+export const getCollectionById=(db,nameColl)=>{
     return db.collection(nameColl)
     .get()
     .then(
@@ -48,7 +48,18 @@ const getCollectionById=(db,nameColl)=>{
     ).catch(error=>{console.log(error); return [];});
 }
 
-const getDocFromCollectionById=(db,nameColl,docId)=>{
+export const getUidsCollectionById=(db,nameColl)=>{
+    return db.collection(nameColl)
+    .get()
+    .then(
+        querySnapshot => {
+                const data =querySnapshot.docs.map(doc => doc.id);
+                return data;
+        }
+    ).catch(error=>{console.log(error); return [];});
+}
+
+export const getDocFromCollectionById=(db,nameColl,docId)=>{
     return db.collection(nameColl)
     .doc(docId)
     .get()
@@ -63,7 +74,7 @@ const getDocFromCollectionById=(db,nameColl,docId)=>{
     ).catch(error=>{console.log(error); return {};});
 }
 
-const getPropertyOfCollection=(db,nameColl,docId,nameProperty)=>{
+export const getPropertyOfCollection=(db,nameColl,docId,nameProperty)=>{
     return db.collection(nameColl)
     .doc(docId)
     .get()
@@ -80,13 +91,10 @@ const getPropertyOfCollection=(db,nameColl,docId,nameProperty)=>{
     ).catch(error=>{console.log(error); return {};});
 }
 
-
-
-export {
-    showItems,
-    getAllOrdersWaiter,
-    getDocFromCollectionById,
-    getPropertyOfCollection,
-    getCollectionByCondition,
-    getCollectionById
-};
+export const deleteDocById=(db,nameColl,element)=>{
+    db.collection(nameColl).doc(element).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+}
