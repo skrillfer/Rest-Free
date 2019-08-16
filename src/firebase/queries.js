@@ -92,9 +92,11 @@ export const getPropertyOfCollection=(db,nameColl,docId,nameProperty)=>{
 }
 
 export const deleteDocById=(db,nameColl,element)=>{
-    db.collection(nameColl).doc(element).delete().then(function() {
-        console.log("Document successfully deleted!");
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
+    var ref=db.collection(nameColl).doc(element);
+    var batch = db.batch();
+    console.log('hola');
+    batch.delete(ref);
+    batch.commit().then(function () {
+        console.log("deleted commited");
     });
 }

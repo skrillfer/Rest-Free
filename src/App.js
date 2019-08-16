@@ -35,7 +35,7 @@ class App extends React.Component {
             if(element=="opimWyCY5tNKY7ZdQqsN"){
               console.log(element);
             }else{
-              deleteRest(element);
+              console.log('a eliminar');
             }
         });
     });

@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
-import {getCollectionById,getUidsCollectionById} from './queries';
+import {getCollectionById,getUidsCollectionById,deleteDocById} from './queries';
 
 const config={
     apiKey: "AIzaSyDE-VRTWO7_tqDpsrfgpbNouBR_cDNStNA",
@@ -32,7 +32,8 @@ export const getAllRest= async()=>{
 }
 
 export const deleteRest= async(element)=>{
-  /**/
+  console.log('=====dame====');
+  //deleteDocById(firestore,"restaurants",element);
 }
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
