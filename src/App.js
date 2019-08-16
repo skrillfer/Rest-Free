@@ -8,7 +8,7 @@ import OrdersPage from './pages/restaurant-orders/restaurant-orders.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument,deleteRest,getAllRest } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument,getAllUser } from './firebase/firebase.utils';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
@@ -30,14 +30,8 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    getAllRest().then(value=>{
-        value.forEach(element => {
-            if(element=="opimWyCY5tNKY7ZdQqsN"){
-              console.log(element);
-            }else{
-              console.log('a eliminar');
-            }
-        });
+    getAllUser().then(value=>{
+        console.log(value[0].email);
     });
     
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
