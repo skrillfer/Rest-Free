@@ -8,7 +8,7 @@ import OrdersPage from './pages/restaurant-orders/restaurant-orders.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument,getAllUser } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument,getAllUser } from 'skrillfer-middleware-restfree';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
@@ -31,7 +31,7 @@ class App extends React.Component {
 
   componentDidMount() {
     getAllUser().then(value=>{
-        console.log(value[0].email);
+        console.log(value);
     });
     
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
