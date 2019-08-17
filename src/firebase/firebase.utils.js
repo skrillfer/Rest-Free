@@ -13,7 +13,7 @@ const config={
     appId: "1:474057732963:web:fe2ca3211749107f"
 }
 
-
+export let super_arr=[];
 firebase.initializeApp(config);
 
 export const createRestaurantDocument =async (userAuth, additionalData) => {
@@ -37,7 +37,7 @@ export const deleteRest= async(element)=>{
 }
 
 export const get_Categories = async ()=>{
-  return  await getCategories(firestore);
+ return await getCategories(firestore);
 }
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;

@@ -9,7 +9,7 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import Header from './components/header/header.component';
 
-import { auth, createUserProfileDocument,get_Categories } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument,get_Categories,super_arr } from './firebase/firebase.utils';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
@@ -18,6 +18,11 @@ import NavList from './components/sidenav/nav-list/nav-list.component';
 import Heading from  './components/sidenav/nav-list/heading/heading.component';
 import SubHeading from './components/sidenav/nav-list/sub-heading/sub-heading.component';
 import { FiCast } from "react-icons/fi";
+
+
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/map';
 
 class App extends React.Component {
   constructor() {
@@ -31,9 +36,22 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    get_Categories().then(value=>{
-        console.log(value);
-    });
+    
+    get_Categories().then(
+      value=>{
+        value.onSnapshot(querySnapshot=>{
+          querySnapshot.forEach(doc=> {
+              
+              console.log({id:doc.id,...doc.data()});
+          });
+        });
+      }
+    )
+    /**/
+
+    var result=Observable.from(super_arr);
+    result.subscribe(x => console.log(x));  
+
     
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -48,7 +66,7 @@ class App extends React.Component {
           });
         });
       }
-      console.log(userAuth);
+      //console.log(userAuth);
       this.setState({ currentUser: userAuth });
     });
   }

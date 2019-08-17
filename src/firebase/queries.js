@@ -104,15 +104,7 @@ export const deleteDocById=(db,nameColl,element)=>{
 
 /*Real Time */
 export const getCategories=(db)=>{
-    var arr=[];
-     db.collection('restaurants')
+    return  db.collection('restaurants')
     .doc('opimWyCY5tNKY7ZdQqsN')
-    .collection('categories')
-    .onSnapshot(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            arr.push({id:doc.id,...doc.data()});
-        });
-        return arr;
-    });
+    .collection('categories');
 }
