@@ -8,7 +8,8 @@ import OrdersPage from './pages/restaurant-orders/restaurant-orders.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument,getAllUser } from 'skrillfer-middleware-restfree';
+
+import { auth, createUserProfileDocument,get_Categories } from './firebase/firebase.utils';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
@@ -30,7 +31,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    getAllUser().then(value=>{
+    get_Categories().then(value=>{
         console.log(value);
     });
     
