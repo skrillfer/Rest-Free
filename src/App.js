@@ -13,7 +13,8 @@ import {
         auth, 
         createUserProfileDocument,
         getAllCategories,getAllOrders,
-        getItemsInOrder
+        getItemsInOrder,
+        getTypesInItemFromOrder
 
        } from './firebase/firebase.utils';
 
@@ -46,16 +47,19 @@ class App extends React.Component {
       console.log(todos);
     });  
 
-    
-    collectionData(getAllOrders(), 'id').subscribe(todos => { 
-      todos.map(bit=>{
-          console.log(bit);
-          collectionData(getItemsInOrder(bit.id), 'id').subscribe(todos1 => {
-            console.log(todos1);
+    var ref1,ref2;
+    collectionData(ref1=getAllOrders(), 'id').subscribe(orders => { 
+      orders.map(data1=>{
+          console.log(data1);
+          collectionData(ref2=getItemsInOrder(ref1,data1.id), 'id').subscribe(items => {
+            console.log(items);
+            items.map(data2=>{
+              collectionData(getTypesInItemFromOrder(ref2,data2.id), 'id').subscribe(types => {
+                console.log(types);
+              }); 
+            });
           });
-         
       });
-      
     });    
     
     

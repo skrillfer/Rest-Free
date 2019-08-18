@@ -27,8 +27,8 @@ export const createRestaurantDocument =async (userAuth, additionalData) => {
 
 export const getAllOrders=()=>Consults.getAllOrders(firestore);
 export const getAllCategories=()=>Consults.getAllCategories(firestore);
-export const getItemsInOrder=(id)=>Consults.getItemsInOrder(firestore,id);
-
+export const getItemsInOrder=(ref,id)=>Consults.getItemsInOrder(ref,id);
+export const getTypesInItemFromOrder=(ref,id)=>Consults.getTypesInItemFromOrder(ref,id);
 
 export const getAllUser= async()=>{
   return await getCollectionById(firestore,"admins");

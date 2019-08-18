@@ -4,12 +4,12 @@ export const getAllOrders=(db)=>{
     .collection('orders');
 }
 
-export const getItemsInOrder=(db,idDoc)=>{
-    return getAllOrders(db).doc(idDoc).collection('items');
+export const getItemsInOrder=(ref,idDoc)=>{
+    return ref.doc(idDoc).collection('items');
 }
 
-export const getTypesInItemFromOrder=(db,idDoc)=>{
-    //return getItemsInOrder(db,idDoc).doc(idDoc).collection('items');
+export const getTypesInItemFromOrder=(ref,idDoc)=>{
+    return ref.doc(idDoc).collection('types');
 }
 
 export const getAllCategories = (db)=>{
