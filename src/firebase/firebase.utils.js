@@ -1,7 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
-import {getCollectionById,getUidsCollectionById,getCategories} from './queries';
+import {getCollectionById,getUidsCollectionById} from './queries';
+
+import * as Consults from './consult'
 
 const config={
     apiKey: "AIzaSyDE-VRTWO7_tqDpsrfgpbNouBR_cDNStNA",
@@ -23,6 +25,11 @@ export const createRestaurantDocument =async (userAuth, additionalData) => {
   await reF2.set({'1':''});
 }
 
+export const getAllOrders=()=>Consults.getAllOrders(firestore);
+export const getAllCategories=()=>Consults.getAllCategories(firestore);
+export const getItemsInOrder=(id)=>Consults.getItemsInOrder(firestore,id);
+
+
 export const getAllUser= async()=>{
   return await getCollectionById(firestore,"admins");
 }
@@ -36,9 +43,6 @@ export const deleteRest= async(element)=>{
   //deleteDocById(firestore,"restaurants",element);
 }
 
-export const get_Categories = async ()=>{
- return await getCategories(firestore);
-}
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
   

@@ -9,7 +9,13 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import Header from './components/header/header.component';
 
-import { auth, createUserProfileDocument,get_Categories,super_arr } from './firebase/firebase.utils';
+import { 
+        auth, 
+        createUserProfileDocument,
+        getAllCategories,getAllOrders,
+        getItemsInOrder
+
+       } from './firebase/firebase.utils';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
@@ -19,10 +25,8 @@ import Heading from  './components/sidenav/nav-list/heading/heading.component';
 import SubHeading from './components/sidenav/nav-list/sub-heading/sub-heading.component';
 import { FiCast } from "react-icons/fi";
 
+import { collectionData } from 'rxfire/firestore';
 
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/map';
 
 class App extends React.Component {
   constructor() {
@@ -37,21 +41,23 @@ class App extends React.Component {
 
   componentDidMount() {
     
-    get_Categories().then(
-      value=>{
-        value.onSnapshot(querySnapshot=>{
-          querySnapshot.forEach(doc=> {
-              
-              console.log({id:doc.id,...doc.data()});
+    
+    collectionData(getAllCategories(), 'id').subscribe(todos => { 
+      console.log(todos);
+    });  
+
+    
+    collectionData(getAllOrders(), 'id').subscribe(todos => { 
+      todos.map(bit=>{
+          console.log(bit);
+          collectionData(getItemsInOrder(bit.id), 'id').subscribe(todos1 => {
+            console.log(todos1);
           });
-        });
-      }
-    )
-    /**/
-
-    var result=Observable.from(super_arr);
-    result.subscribe(x => console.log(x));  
-
+         
+      });
+      
+    });    
+    
     
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {

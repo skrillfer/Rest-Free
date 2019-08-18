@@ -1,3 +1,5 @@
+
+
 export const showItems=(db)=>{
     return  db.collection("items")
     .where("name", "==", "Coca Cola")
@@ -101,10 +103,3 @@ export const deleteDocById=(db,nameColl,element)=>{
     });
 }
 
-
-/*Real Time */
-export const getCategories=(db)=>{
-    return  db.collection('restaurants')
-    .doc('opimWyCY5tNKY7ZdQqsN')
-    .collection('categories');
-}
