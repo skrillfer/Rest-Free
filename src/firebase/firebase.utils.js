@@ -26,10 +26,20 @@ export const createRestaurantDocument =async (userAuth, additionalData) => {
   await reF2.set({'1':''});
 }
 
-export const getAllOrders=()=>Consults.getAllOrders(firestore);
 export const getAllCategories=()=>Consults.getAllCategories(firestore);
-export const getItemsInOrder=(ref,id)=>Consults.getItemsInOrder(ref,id);
-export const getTypesInItemFromOrder=(ref,id)=>Consults.getTypesInItemFromOrder(ref,id);
+
+export const getAllOrders=()=>{
+  references['refAllOrders']=Consults.getAllOrders(firestore);
+  return references.refAllOrders;
+}
+
+export const getItemsInOrder=(id)=>{
+  return Consults.getItemsInOrder(references.refAllOrders,id);
+}
+
+export const getTypesInItemFromOrder=(id1,id2)=>{
+  return Consults.getTypesInItemFromOrder(getItemsInOrder(id1),id2);
+}
 
 export const getAllUser= async()=>{
   return await getCollectionById(firestore,"admins");

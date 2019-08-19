@@ -43,17 +43,17 @@ class App extends React.Component {
     
     
     collectionData(getAllCategories(), 'id').subscribe(todos => { 
-      console.log(todos);
+      //console.log(todos);
     });  
 
-    var ref1,ref2;
-    collectionData(ref1=getAllOrders(), 'id').subscribe(orders => { 
+    collectionData(getAllOrders(), 'id').subscribe(orders => { 
+      console.log(orders);
       orders.map(data1=>{
-          console.log(data1);
-          collectionData(ref2=getItemsInOrder(ref1,data1.id), 'id').subscribe(items => {
+          collectionData(getItemsInOrder(data1.id), 'id').subscribe(items => {
             console.log(items);
             items.map(data2=>{
-              collectionData(getTypesInItemFromOrder(ref2,data2.id), 'id').subscribe(types => {
+              collectionData(getTypesInItemFromOrder(data1.id,data2.id), 'id').subscribe(types => {
+                console.log(data1.id);
                 console.log(types);
               }); 
             });
