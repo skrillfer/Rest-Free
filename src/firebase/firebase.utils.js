@@ -5,6 +5,7 @@ import {getCollectionById,getUidsCollectionById} from './queries';
 
 import * as Consults from './consult'
 
+var references={};
 const config={
     apiKey: "AIzaSyDE-VRTWO7_tqDpsrfgpbNouBR_cDNStNA",
     authDomain: "restfree-fb70d.firebaseapp.com",

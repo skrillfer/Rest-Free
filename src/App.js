@@ -28,7 +28,6 @@ import { FiCast } from "react-icons/fi";
 
 import { collectionData } from 'rxfire/firestore';
 
-
 class App extends React.Component {
   constructor() {
     super();
