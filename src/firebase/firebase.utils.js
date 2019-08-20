@@ -3,7 +3,8 @@ import 'firebase/auth';
 import 'firebase/firebase-firestore';
 import {getCollectionById,getUidsCollectionById} from './queries';
 
-import * as Consults from './consult'
+import * as Consults from './consult';
+import * as Updates from './update';
 
 var references={};
 const config={
@@ -15,8 +16,6 @@ const config={
     messagingSenderId: "474057732963",
     appId: "1:474057732963:web:fe2ca3211749107f"
 }
-
-export let super_arr=[];
 firebase.initializeApp(config);
 
 export const createRestaurantDocument =async (userAuth, additionalData) => {
@@ -26,6 +25,7 @@ export const createRestaurantDocument =async (userAuth, additionalData) => {
   await reF2.set({'1':''});
 }
 
+//-------------------Get
 export const getAllCategories=()=>Consults.getAllCategories(firestore);
 
 export const getAllOrders=()=>{
@@ -52,6 +52,11 @@ export const getAllRest= async()=>{
 export const deleteRest= async(element)=>{
   console.log('=====dame====');
   //deleteDocById(firestore,"restaurants",element);
+}
+
+//-------------------Update
+export const updateStatusOrder=(id,payload)=>{
+  Updates.updatePropertyInDocument(references.refAllOrders,id,{status:payload});
 }
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {

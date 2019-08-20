@@ -12,10 +12,10 @@ import Header from './components/header/header.component';
 import { 
         auth, 
         createUserProfileDocument,
-        getAllCategories,getAllOrders,
+        getAllCategories,
+        getAllOrders,
         getItemsInOrder,
-        getTypesInItemFromOrder
-
+        getTypesInItemFromOrder,updateStatusOrder
        } from './firebase/firebase.utils';
 
 import GridContainer from './components/grid-container/grid-container.component';
@@ -41,9 +41,9 @@ class App extends React.Component {
 
   componentDidMount() {
     
-    
+
     collectionData(getAllCategories(), 'id').subscribe(todos => { 
-      //console.log(todos);
+      console.log(todos);
     });  
 
     collectionData(getAllOrders(), 'id').subscribe(orders => { 
@@ -53,15 +53,14 @@ class App extends React.Component {
             console.log(items);
             items.map(data2=>{
               collectionData(getTypesInItemFromOrder(data1.id,data2.id), 'id').subscribe(types => {
-                console.log(data1.id);
                 console.log(types);
               }); 
             });
           });
       });
     });    
-    
-    
+    //updateStatusOrder('wFqwkm8yVnSUyuCtSOeP',9);
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
