@@ -15,8 +15,8 @@ import {
         getAllCategories,
         getAllOrders,
         getItemsInOrder,
-        getTypesInItemFromOrder,updateStatusOrder
-       } from './firebase/firebase.utils';
+        getTypesInItemFromOrder
+       } from 'skrillfer-middleware-restfree';
 
 import GridContainer from './components/grid-container/grid-container.component';
 
