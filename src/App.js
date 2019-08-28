@@ -43,7 +43,7 @@ class App extends React.Component {
     
 
     collectionData(getAllCategories(), 'id').subscribe(todos => { 
-      console.log(todos);
+      console.log(todos[0].description);
     });  
 
     collectionData(getAllOrders(), 'id').subscribe(orders => { 
